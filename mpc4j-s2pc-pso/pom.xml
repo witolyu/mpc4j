@@ -50,6 +50,12 @@
             <artifactId>mpc4j-s2pc-aby</artifactId>
             <version>1.0.5</version>
         </dependency>
+        <dependency>
+            <groupId>edu.alibaba</groupId>
+            <artifactId>mpc4j-crypto-phe</artifactId>
+            <version>1.0.5</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <!-- 下面是用于打包的插件，如果不用这个插件导出jar可能会出现问题 -->

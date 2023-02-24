@@ -10,6 +10,7 @@ import edu.alibaba.mpc4j.s2pc.pso.psu.gmr21.Gmr21PsuServer;
 import edu.alibaba.mpc4j.s2pc.pso.psu.jsz22.*;
 import edu.alibaba.mpc4j.s2pc.pso.psu.krtw19.*;
 import edu.alibaba.mpc4j.s2pc.pso.psu.zcl22.*;
+import edu.alibaba.mpc4j.s2pc.pso.psu.ghll22.*;
 
 /**
  * PSU协议工厂。
@@ -57,6 +58,14 @@ public class PsuFactory implements PtoFactory {
          * ZCL22_SKE方案
          */
         ZCL22_SKE,
+        /**
+         * GHLL22_OT方案
+         */
+        GHLL22_OT,
+        /**
+         * GHLL22_AHE方案
+         */
+        GHLL22_AHE,
     }
 
     /**
@@ -84,6 +93,10 @@ public class PsuFactory implements PtoFactory {
                 return new Jsz22SfcPsuServer(serverRpc, clientParty, (Jsz22SfcPsuConfig) config);
             case JSZ22_SFS:
                 return new Jsz22SfsPsuServer(serverRpc, clientParty, (Jsz22SfsPsuConfig) config);
+            case GHLL22_OT:
+                return new Ghll22OtPsuServer(serverRpc, clientParty, (Ghll22OtPsuConfig) config);
+            case GHLL22_AHE:
+                return new Ghll22AhePsuServer(serverRpc, clientParty, (Ghll22AhePsuConfig) config);
             default:
                 throw new IllegalArgumentException("Invalid " + PsuType.class.getSimpleName() + ": " + type.name());
         }
@@ -114,6 +127,10 @@ public class PsuFactory implements PtoFactory {
                 return new Jsz22SfcPsuClient(clientRpc, serverParty, (Jsz22SfcPsuConfig) config);
             case JSZ22_SFS:
                 return new Jsz22SfsPsuClient(clientRpc, serverParty, (Jsz22SfsPsuConfig) config);
+            case GHLL22_OT:
+                return new Ghll22OtPsuClient(clientRpc, serverParty, (Ghll22OtPsuConfig) config);
+            case GHLL22_AHE:
+                return new Ghll22AhePsuClient(clientRpc, serverParty, (Ghll22AhePsuConfig) config);
             default:
                 throw new IllegalArgumentException("Invalid " + PsuType.class.getSimpleName() + ": " + type.name());
         }

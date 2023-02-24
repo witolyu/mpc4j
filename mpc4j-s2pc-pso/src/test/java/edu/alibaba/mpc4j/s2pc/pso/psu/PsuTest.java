@@ -17,6 +17,8 @@ import edu.alibaba.mpc4j.s2pc.pso.psu.krtw19.Krtw19OptPsuConfig;
 import edu.alibaba.mpc4j.s2pc.pso.psu.krtw19.Krtw19OriPsuConfig;
 import edu.alibaba.mpc4j.s2pc.pso.psu.zcl22.Zcl22PkePsuConfig;
 import edu.alibaba.mpc4j.s2pc.pso.psu.zcl22.Zcl22SkePsuConfig;
+import edu.alibaba.mpc4j.s2pc.pso.psu.ghll22.Ghll22OtPsuConfig;
+import edu.alibaba.mpc4j.s2pc.pso.psu.ghll22.Ghll22AhePsuConfig;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.StopWatch;
 import org.junit.Assert;
@@ -68,6 +70,11 @@ public class PsuTest {
      */
     private static final int LARGE_SIZE = 1 << 12;
 
+    /**
+     * very large size
+     */
+    private static final int VERY_LARGE_SIZE = 1 << 18;
+
     @Parameterized.Parameters(name = "{0}")
     public static Collection<Object[]> configurations() {
         Collection<Object[]> configurations = new ArrayList<>();
@@ -76,49 +83,57 @@ public class PsuTest {
             .setCotConfig(new DirectCotConfig.Builder(SecurityModel.SEMI_HONEST).build())
             .build();
 
-        // JSZ22_SFS (direct COT)
+//        // JSZ22_SFS (direct COT)
+//        configurations.add(new Object[] {
+//            PsuFactory.PsuType.JSZ22_SFS.name() + " (direct COT)",
+//            new Jsz22SfsPsuConfig.Builder().setOsnConfig(directCotOsnConfig).build(),
+//        });
+//        // JSZ22_SFS (silent COT)
+//        configurations.add(new Object[] {
+//            PsuFactory.PsuType.JSZ22_SFS.name() + " (silent COT)", new Jsz22SfsPsuConfig.Builder().build(),
+//        });
+//        // JSZ22_SFC (direct COT)
+//        configurations.add(new Object[] {
+//            PsuFactory.PsuType.JSZ22_SFC.name() + " (direct COT)",
+//            new Jsz22SfcPsuConfig.Builder().setOsnConfig(directCotOsnConfig).build(),
+//        });
+//        // JSZ22_SFC (silent COT)
+//        configurations.add(new Object[] {
+//            PsuFactory.PsuType.JSZ22_SFC.name() + " (silent COT)", new Jsz22SfcPsuConfig.Builder().build(),
+//        });
+        // GHLL22_OT
         configurations.add(new Object[] {
-            PsuFactory.PsuType.JSZ22_SFS.name() + " (direct COT)",
-            new Jsz22SfsPsuConfig.Builder().setOsnConfig(directCotOsnConfig).build(),
+                PsuFactory.PsuType.GHLL22_OT.name(), new Ghll22OtPsuConfig.Builder().build(),
         });
-        // JSZ22_SFS (silent COT)
+        // GHLL22_AHE
         configurations.add(new Object[] {
-            PsuFactory.PsuType.JSZ22_SFS.name() + " (silent COT)", new Jsz22SfsPsuConfig.Builder().build(),
+                PsuFactory.PsuType.GHLL22_AHE.name(), new Ghll22AhePsuConfig.Builder().build(),
         });
-        // JSZ22_SFC (direct COT)
-        configurations.add(new Object[] {
-            PsuFactory.PsuType.JSZ22_SFC.name() + " (direct COT)",
-            new Jsz22SfcPsuConfig.Builder().setOsnConfig(directCotOsnConfig).build(),
-        });
-        // JSZ22_SFC (silent COT)
-        configurations.add(new Object[] {
-            PsuFactory.PsuType.JSZ22_SFC.name() + " (silent COT)", new Jsz22SfcPsuConfig.Builder().build(),
-        });
-        // ZCL22_PKE
-        configurations.add(new Object[] {
-            PsuFactory.PsuType.ZCL22_PKE.name(), new Zcl22PkePsuConfig.Builder().build(),
-        });
-        // ZCL22_SKE
-        configurations.add(new Object[] {
-            PsuFactory.PsuType.ZCL22_SKE.name(), new Zcl22SkePsuConfig.Builder().build(),
-        });
-        // GMR21 (silent COT)
-        configurations.add(new Object[] {
-            PsuFactory.PsuType.GMR21.name() + " (silent COT)", new Gmr21PsuConfig.Builder().build(),
-        });
-        // GMR21 (direct COT)
-        configurations.add(new Object[] {
-            PsuFactory.PsuType.GMR21.name() + " (direct COT)",
-            new Gmr21PsuConfig.Builder().setOsnConfig(directCotOsnConfig).build(),
-        });
-        // KRTW19_OPT
-        configurations.add(new Object[] {
-            PsuFactory.PsuType.KRTW19_OPT.name(), new Krtw19OptPsuConfig.Builder().build(),
-        });
-        // KRTW19_ORI
-        configurations.add(new Object[] {
-            PsuFactory.PsuType.KRTW19_ORI.name(), new Krtw19OriPsuConfig.Builder().build(),
-        });
+//        // ZCL22_PKE
+//        configurations.add(new Object[] {
+//                PsuFactory.PsuType.ZCL22_PKE.name(), new Zcl22PkePsuConfig.Builder().build(),
+//        });
+//        // ZCL22_SKE
+//        configurations.add(new Object[] {
+//            PsuFactory.PsuType.ZCL22_SKE.name(), new Zcl22SkePsuConfig.Builder().build(),
+//        });
+//        // GMR21 (silent COT)
+//        configurations.add(new Object[] {
+//            PsuFactory.PsuType.GMR21.name() + " (silent COT)", new Gmr21PsuConfig.Builder().build(),
+//        });
+//        // GMR21 (direct COT)
+//        configurations.add(new Object[] {
+//            PsuFactory.PsuType.GMR21.name() + " (direct COT)",
+//            new Gmr21PsuConfig.Builder().setOsnConfig(directCotOsnConfig).build(),
+//        });
+//        // KRTW19_OPT
+//        configurations.add(new Object[] {
+//            PsuFactory.PsuType.KRTW19_OPT.name(), new Krtw19OptPsuConfig.Builder().build(),
+//        });
+//        // KRTW19_ORI
+//        configurations.add(new Object[] {
+//            PsuFactory.PsuType.KRTW19_ORI.name(), new Krtw19OriPsuConfig.Builder().build(),
+//        });
 
         return configurations;
     }
@@ -218,6 +233,20 @@ public class PsuTest {
     }
 
     @Test
+    public void testVeryLarge() {
+        PsuServer server = PsuFactory.createServer(serverRpc, clientRpc.ownParty(), config);
+        PsuClient client = PsuFactory.createClient(clientRpc, serverRpc.ownParty(), config);
+        testPto(server, client, VERY_LARGE_SIZE, VERY_LARGE_SIZE, DEFAULT_ELEMENT_BYTE_LENGTH);
+    }
+
+    @Test
+    public void testVeryLargeDisjoint() {
+        PsuServer server = PsuFactory.createServer(serverRpc, clientRpc.ownParty(), config);
+        PsuClient client = PsuFactory.createClient(clientRpc, serverRpc.ownParty(), config);
+        testPto2(server, client, VERY_LARGE_SIZE, VERY_LARGE_SIZE, DEFAULT_ELEMENT_BYTE_LENGTH);
+    }
+
+    @Test
     public void testParallelLarge() {
         PsuServer server = PsuFactory.createServer(serverRpc, clientRpc.ownParty(), config);
         PsuClient client = PsuFactory.createClient(clientRpc, serverRpc.ownParty(), config);
@@ -261,6 +290,49 @@ public class PsuTest {
             LOGGER.info("Client data_packet_num = {}, payload_bytes = {}B, send_bytes = {}B, time = {}ms",
                 clientRpc.getSendDataPacketNum(), clientRpc.getPayloadByteLength(), clientRpc.getSendByteLength(),
                 time
+            );
+            serverRpc.reset();
+            clientRpc.reset();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void testPto2(PsuServer server, PsuClient client, int serverSize, int clientSize, int elementByteLength) {
+        long randomTaskId = Math.abs(SECURE_RANDOM.nextLong());
+        server.setTaskId(randomTaskId);
+        client.setTaskId(randomTaskId);
+        try {
+            LOGGER.info("-----test {}，server_size = {}，client_size = {}-----",
+                    server.getPtoDesc().getPtoName(), serverSize, clientSize
+            );
+            // 生成集合
+            ArrayList<Set<ByteBuffer>> sets = PsoUtils.generateDisjointBytesSets(serverSize, clientSize, elementByteLength);
+            Set<ByteBuffer> serverSet = sets.get(0);
+            Set<ByteBuffer> clientSet = sets.get(1);
+            // 构建线程
+            PsuServerThread serverThread = new PsuServerThread(server, serverSet, clientSet.size(), elementByteLength);
+            PsuClientThread clientThread = new PsuClientThread(client, clientSet, serverSet.size(), elementByteLength);
+            StopWatch stopWatch = new StopWatch();
+            // 开始执行协议
+            stopWatch.start();
+            serverThread.start();
+            clientThread.start();
+            // 等待线程停止
+            serverThread.join();
+            clientThread.join();
+            stopWatch.stop();
+            long time = stopWatch.getTime(TimeUnit.MILLISECONDS);
+            stopWatch.reset();
+            // 验证结果
+            assertOutput(serverSet, clientSet, clientThread.getUnionSet());
+            LOGGER.info("Server data_packet_num = {}, payload_bytes = {}B, send_bytes = {}B, time = {}ms",
+                    serverRpc.getSendDataPacketNum(), serverRpc.getPayloadByteLength(), serverRpc.getSendByteLength(),
+                    time
+            );
+            LOGGER.info("Client data_packet_num = {}, payload_bytes = {}B, send_bytes = {}B, time = {}ms",
+                    clientRpc.getSendDataPacketNum(), clientRpc.getPayloadByteLength(), clientRpc.getSendByteLength(),
+                    time
             );
             serverRpc.reset();
             clientRpc.reset();

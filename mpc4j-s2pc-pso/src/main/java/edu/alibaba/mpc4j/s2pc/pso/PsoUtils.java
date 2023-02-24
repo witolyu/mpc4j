@@ -131,14 +131,62 @@ public class PsoUtils {
         return generateBytesSets(setSize, setSize, elementByteLength);
     }
 
+
+
     /**
-     * 生成参与方的测试集合。
+     * Generate participants' disjoint sets for tests.
      *
      * @param serverSize 服务端集合大小。
      * @param clientSize 客户端集合大小。
      * @param elementByteLength 元素字节长度。
      * @return 各个参与方的集合。
      */
+    public static ArrayList<Set<ByteBuffer>> generateDisjointBytesSets(int serverSize, int clientSize,
+                                                                       int elementByteLength) {
+        assert serverSize >= 1 : "server must have at least 2 elements";
+        assert clientSize >= 1 : "client must have at least 2 elements";
+        assert elementByteLength >= CommonConstants.STATS_BYTE_LENGTH;
+        // 放置各个参与方的集合
+        Set<ByteBuffer> serverSet = new HashSet<>(serverSize);
+        Set<ByteBuffer> clientSet = new HashSet<>(clientSize);
+        // 按照最小集合大小添加部分交集元素
+        int minSize = Math.min(serverSize, clientSize);
+        IntStream.range(0, minSize).forEach(index -> {
+            // 服务端集合添加整数值[0, 0, 1, index]
+            // 客户端集合添加整数值[0, 0, 2, index]
+            ByteBuffer serverByteBuffer = ByteBuffer.allocate(elementByteLength);
+            serverByteBuffer.putInt(elementByteLength - Integer.BYTES * 2, 1);
+            serverByteBuffer.putInt(elementByteLength - Integer.BYTES, index);
+            serverSet.add(serverByteBuffer);
+            ByteBuffer clientByteBuffer = ByteBuffer.allocate(elementByteLength);
+            clientByteBuffer.putInt(elementByteLength - Integer.BYTES * 2, 2);
+            clientByteBuffer.putInt(elementByteLength - Integer.BYTES, index);
+            clientSet.add(clientByteBuffer);
+        });
+        // 补足集合剩余的元素
+        if (serverSize > minSize) {
+            IntStream.range(minSize, serverSize).forEach(index -> {
+                ByteBuffer serverByteBuffer = ByteBuffer.allocate(elementByteLength);
+                serverByteBuffer.putInt(elementByteLength - Integer.BYTES * 2, 1);
+                serverByteBuffer.putInt(elementByteLength - Integer.BYTES, index);
+                serverSet.add(serverByteBuffer);
+            });
+        }
+        if (clientSize > minSize) {
+            IntStream.range(minSize, serverSize).forEach(index -> {
+                ByteBuffer clientByteBuffer = ByteBuffer.allocate(elementByteLength);
+                clientByteBuffer.putInt(elementByteLength - Integer.BYTES * 2, 2);
+                clientByteBuffer.putInt(elementByteLength - Integer.BYTES, index);
+                clientSet.add(clientByteBuffer);
+            });
+        }
+        // 构建返回结果
+        ArrayList<Set<ByteBuffer>> byteArraySetArrayList = new ArrayList<>(2);
+        byteArraySetArrayList.add(serverSet);
+        byteArraySetArrayList.add(clientSet);
+
+        return byteArraySetArrayList;
+    }
     public static ArrayList<Set<ByteBuffer>> generateBytesSets(int serverSize, int clientSize, int elementByteLength) {
         assert serverSize >= 1 : "server must have at least 2 elements";
         assert clientSize >= 1 : "client must have at least 2 elements";
@@ -200,6 +248,7 @@ public class PsoUtils {
 
         return byteArraySetArrayList;
     }
+
 
     /**
      * 发送方字节文件前缀
