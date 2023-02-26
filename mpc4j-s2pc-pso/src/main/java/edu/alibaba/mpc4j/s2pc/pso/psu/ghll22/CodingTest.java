@@ -75,9 +75,7 @@ public class CodingTest {
         }
     }
 
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-
+    public static void testPai(){
         PheFactory.PheType pheType = PheFactory.PheType.PAI99;
         PheSecLevel pheSecLevel = PheSecLevel.LAMBDA_128;
         boolean signed = false;
@@ -193,18 +191,21 @@ public class CodingTest {
         long reRandTime = stopWatch.getTime(TimeUnit.MILLISECONDS);
         stopWatch.reset();
         System.out.println("reRandTime: "+reRandTime + " ms.");
+    }
 
+    static {
+        System.loadLibrary(CommonConstants.MPC4J_NATIVE_FHE_NAME);
+    }
 
+    public static void testBFV(){
+        List<byte[]> encryptionParams = Ghll22AhePsuNativeUtils.genEncryptionParameters(
+                40961, 4096, new int[]{24, 24, 24}
+        );
+        List<byte[]> fheParams = encryptionParams.subList(0, 2);
+    }
 
-
-
-
-
-
-
-
-
-
-
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+        testPai();
     }
 }
