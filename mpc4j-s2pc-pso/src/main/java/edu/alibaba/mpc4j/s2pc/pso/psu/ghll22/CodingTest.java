@@ -197,15 +197,19 @@ public class CodingTest {
         System.loadLibrary(CommonConstants.MPC4J_NATIVE_FHE_NAME);
     }
 
-    public static void testBFV(){
-        List<byte[]> encryptionParams = Ghll22AhePsuNativeUtils.genEncryptionParameters(
-                40961, 4096, new int[]{24, 24, 24}
-        );
-        List<byte[]> fheParams = encryptionParams.subList(0, 2);
-    }
+//    public static void testBFV(){
+//        List<byte[]> encryptionParams = Ghll22AhePsuNativeUtils.genEncryptionParameters(
+//                4096, 40961, new int[]{24, 24, 24}
+//        );
+//        List<byte[]> fheParams = encryptionParams.subList(0, 2);
+//        System.out.println(fheParams.get(0));
+//
+////        Ghll22AhePsuNativeUtils.sayHello();
+//
+//    }
 
     public static void main(String[] args) {
         System.out.println("Hello, World!");
-        testPai();
+//        testBFV();
     }
 }

@@ -1,8 +1,8 @@
 #include "edu_alibaba_mpc4j_s2pc_pso_psu_ghll22_Ghll22AhePsuNativeUtils.h"
-//#include "../apsi.h"
-//#include "../serialize.h"
-//#include "../utils.h"
-//#include "../polynomials.h"
+#include "../apsi.h"
+#include "../serialize.h"
+#include "../utils.h"
+#include "../polynomials.h"
 
 using namespace std;
 using namespace seal;
@@ -18,6 +18,7 @@ JNIEXPORT jobject JNICALL Java_edu_alibaba_mpc4j_s2pc_pso_psu_ghll22_Ghll22AhePs
     const SecretKey &secret_key = key_gen.secret_key();
     Serializable relin_keys = key_gen.create_relin_keys();
     Serializable public_key = key_gen.create_public_key();
+    std::cout << "Hello from C++ !!" << std::endl;
     return serialize_relin_public_secret_keys(env, parms, relin_keys, public_key, secret_key);
 }
 
