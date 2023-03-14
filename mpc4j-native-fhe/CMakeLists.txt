@@ -56,7 +56,6 @@ add_library(
         pir/edu_alibaba_mpc4j_s2pc_pir_index_xpir_Mbfk16IndexPirNativeUtils.cpp
         pir/edu_alibaba_mpc4j_s2pc_pir_keyword_cmg21_Cmg21KwPirNativeUtils.cpp
         upsi/edu_alibaba_mpc4j_s2pc_pso_upsi_cmg21_Cmg21UpsiNativeUtils.cpp
-        psu/edu_alibaba_mpc4j_s2pc_pso_psu_ghll22_Ghll22AhePsuNativeUtils.cpp
         mtg/edu_alibaba_mpc4j_s2pc_pcg_mtg_zp64_core_rss19_Rss19Zp64CoreMtgNativeUtils.cpp
 )
 # 链接SEAL库
