@@ -1,3 +1,9 @@
+# Maliciously-secure PSU
+
+Package psu in mpc4j-s2pc-pso contains the implementations of maliciously-secure protocols in our paper: More Efficient (Resuable) Private Set Union. Specifically, both our two round protocols are implemented in the ghll22 package with Ghll22Ahe prefix corresponds to our 2 round protocol and Ghll22Ot corresponds to our 2 round protocol. The configuration files are under conf/psu in mpc4j-s2pc-pso. Use Maven to compile. Run java -jar mpc4j-s2pc-pso-X.X.X-jar-with-dependencies.jar conf_file_name.txt separately on two platforms with direct network connections (using the network channel assigned in config files) or on two terminals in one platform (using local network 127.0.0.1). Note that **you need first to run the server and then run the client. **The server and the client implicitly synchronize before running the protocol, and the first step is the client sends something like "hello" to the server. If the server is offline at that time, the program will get stuck.
+
+Below comes from the original Readme File:
+
 # mpc4j
 
 ## Introduction
