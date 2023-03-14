@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.Random;
 import java.util.Arrays;
 
 /**
@@ -293,6 +294,25 @@ public class BigIntegerUtils {
         int bits = n.bitLength();
         while (true) {
             BigInteger r = new BigInteger(bits, secureRandom);
+            if (BigIntegerUtils.less(r, BigInteger.ONE) || BigIntegerUtils.greaterOrEqual(r, n)) {
+                continue;
+            }
+            return r;
+        }
+    }
+
+    /**
+     * 返回一个属于[1, n)的随机数。
+     *
+     * @param n            上界。
+     * @param random 随机状态。
+     * @return 随机数。
+     */
+    public static BigInteger randomPositive(final BigInteger n, Random random) {
+        assert BigIntegerUtils.greater(n, BigInteger.ONE) : "n must be greater than 1:" + n;
+        int bits = n.bitLength();
+        while (true) {
+            BigInteger r = new BigInteger(bits, random);
             if (BigIntegerUtils.less(r, BigInteger.ONE) || BigIntegerUtils.greaterOrEqual(r, n)) {
                 continue;
             }

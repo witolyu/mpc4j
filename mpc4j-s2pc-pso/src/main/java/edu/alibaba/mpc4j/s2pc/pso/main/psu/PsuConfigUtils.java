@@ -5,6 +5,7 @@ import edu.alibaba.mpc4j.common.tool.hashbin.object.cuckoo.CuckooHashBinFactory.
 import edu.alibaba.mpc4j.common.tool.okve.okvs.OkvsFactory.OkvsType;
 import edu.alibaba.mpc4j.common.tool.okve.ovdm.ecc.EccOvdmFactory.EccOvdmType;
 import edu.alibaba.mpc4j.common.tool.okve.ovdm.gf2e.Gf2eOvdmFactory.Gf2eOvdmType;
+import edu.alibaba.mpc4j.common.tool.okve.ovdm.zn.ZnOvdmFactory.ZnOvdmType;
 import edu.alibaba.mpc4j.common.tool.utils.PropertiesUtils;
 import edu.alibaba.mpc4j.s2pc.aby.bc.BcConfig;
 import edu.alibaba.mpc4j.s2pc.aby.bc.BcFactory;
@@ -25,6 +26,8 @@ import edu.alibaba.mpc4j.s2pc.pso.osn.OsnConfig;
 import edu.alibaba.mpc4j.s2pc.pso.osn.gmr21.Gmr21OsnConfig;
 import edu.alibaba.mpc4j.s2pc.pso.psu.PsuConfig;
 import edu.alibaba.mpc4j.s2pc.pso.psu.PsuFactory.PsuType;
+import edu.alibaba.mpc4j.s2pc.pso.psu.ghll22.Ghll22AhePsuConfig;
+import edu.alibaba.mpc4j.s2pc.pso.psu.ghll22.Ghll22OtPsuConfig;
 import edu.alibaba.mpc4j.s2pc.pso.psu.gmr21.Gmr21PsuConfig;
 import edu.alibaba.mpc4j.s2pc.pso.psu.jsz22.Jsz22SfcPsuConfig;
 import edu.alibaba.mpc4j.s2pc.pso.psu.jsz22.Jsz22SfsPsuConfig;
@@ -73,9 +76,27 @@ public class PsuConfigUtils {
                 return createJsz22SfcPsuConfig(properties);
             case JSZ22_SFS:
                 return createJsz22SfsPsuConfig(properties);
+            case GHLL22_AHE:
+                return createGhll22AhePsuConfig(properties);
+            case GHLL22_OT:
+                return createGhll22OtPsuConfig(properties);
             default:
                 throw new IllegalArgumentException("Invalid " + PsuType.class.getSimpleName() + ": " + psuType.name());
         }
+    }
+
+    private static PsuConfig createGhll22OtPsuConfig(Properties properties) {
+        return new Ghll22OtPsuConfig.Builder()
+                .setCoreCotConfig(CoreCotFactory.createDefaultConfig(SecurityModel.SEMI_HONEST))
+                .setEccOvdmType(EccOvdmType.H3_SINGLETON_GCT)
+                .build();
+    }
+
+    private static PsuConfig createGhll22AhePsuConfig(Properties properties) {
+        return new Ghll22AhePsuConfig.Builder()
+                .setCoreCotConfig(CoreCotFactory.createDefaultConfig(SecurityModel.SEMI_HONEST))
+                .setZnOvdmType(ZnOvdmType.H3_SINGLETON_GCT)
+                .build();
     }
 
     private static PsuConfig createKrtw19OriPsuConfig() {

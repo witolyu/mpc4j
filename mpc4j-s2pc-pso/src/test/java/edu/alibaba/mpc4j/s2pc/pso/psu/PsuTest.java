@@ -73,7 +73,7 @@ public class PsuTest {
     /**
      * very large size
      */
-    private static final int VERY_LARGE_SIZE = 1 << 18;
+    private static final int VERY_LARGE_SIZE = 1 << 19;
 
     @Parameterized.Parameters(name = "{0}")
     public static Collection<Object[]> configurations() {
@@ -102,17 +102,17 @@ public class PsuTest {
 //            PsuFactory.PsuType.JSZ22_SFC.name() + " (silent COT)", new Jsz22SfcPsuConfig.Builder().build(),
 //        });
         // GHLL22_OT
-        configurations.add(new Object[] {
-                PsuFactory.PsuType.GHLL22_OT.name(), new Ghll22OtPsuConfig.Builder().build(),
-        });
-        // GHLL22_AHE
-        configurations.add(new Object[] {
-                PsuFactory.PsuType.GHLL22_AHE.name(), new Ghll22AhePsuConfig.Builder().build(),
-        });
-//        // ZCL22_PKE
 //        configurations.add(new Object[] {
-//                PsuFactory.PsuType.ZCL22_PKE.name(), new Zcl22PkePsuConfig.Builder().build(),
+//                PsuFactory.PsuType.GHLL22_OT.name(), new Ghll22OtPsuConfig.Builder().build(),
 //        });
+        // GHLL22_AHE
+//        configurations.add(new Object[] {
+//                PsuFactory.PsuType.GHLL22_AHE.name(), new Ghll22AhePsuConfig.Builder().build(),
+//        });
+        // ZCL22_PKE
+        configurations.add(new Object[] {
+                PsuFactory.PsuType.ZCL22_PKE.name(), new Zcl22PkePsuConfig.Builder().build(),
+        });
 //        // ZCL22_SKE
 //        configurations.add(new Object[] {
 //            PsuFactory.PsuType.ZCL22_SKE.name(), new Zcl22SkePsuConfig.Builder().build(),

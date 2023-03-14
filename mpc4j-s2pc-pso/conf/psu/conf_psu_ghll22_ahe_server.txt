@@ -18,12 +18,8 @@ pto_type = PSU
 element_byte_length = 8
 
 # 对数集合大小（log(n)）
-server_log_set_size = 18,16,14
-client_log_set_size = 18,16,14
+server_log_set_size = 12
+client_log_set_size = 12
 
 # 协议名称
-psu_pto_name = ZCL22_PKE
-
-# 是否压缩编码
-compress_encode = true
-# compress_encode = false
+psu_pto_name = GHLL22_AHE

@@ -29,6 +29,9 @@ Our paper ["Linear Private Set Union from Multi-Query Reverse Private Membership
 
 Our paper ["OpBoost: A Vertical Federated Tree Boosting Framework Based on Order-Preserving Desensitization"](https://arxiv.org/abs/2210.01318) was accpeted to VLDB 2023. Module `mpc4j-sml-opboost` contains the implementation of this paper. The configuration files are under `conf` in `mpc4j-sml-opboost`. Like `psu`, run `java -jar mpc4j-s2pc-pso-X.X.X-jar-with-dependencies.jar conf_file_name.txt` separately on two platforms with direct network connections (using the network channel assigned in config files) or on two terminals in one platform (using local network 127.0.0.1). Note that **you need first to run the server and then run the client. **
 
+Extra tips:
+To compile all .jar files, check https://www.tutorialworks.com/intellij-maven-create-jar/ 
+You may need to link the library when executing the java command above: -Djava.library.path=/YOUR_MPC4J_ABSOLUTE_PATH/mpc4j-native-tool/cmake-build-release:/YOUR_MPC4J_ABSOLUTE_PATH/mpc4j-native-fhe/cmake-build-release
 ## References
 
 `mpc4j` includes some implementation ideas and codes from the following open-source libraries.
